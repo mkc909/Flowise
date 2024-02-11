@@ -1,5 +1,7 @@
 {
     "description": "OpenAI Assistant that has instructions and can leverage models, tools, and knowledge to respond to user queries",
+    "categories": "Custom Tool, SerpAPI,OpenAI Assistant,Calculator Tool,Langchain",
+    "framework": "Langchain",
     "badge": "NEW",
     "nodes": [
         {
@@ -14,7 +16,7 @@
             "data": {
                 "id": "openAIAssistant_0",
                 "label": "OpenAI Assistant",
-                "version": 2,
+                "version": 3,
                 "name": "openAIAssistant",
                 "type": "OpenAIAssistant",
                 "baseClasses": ["OpenAIAssistant"],
@@ -45,6 +47,15 @@
                         "type": "Tool",
                         "list": true,
                         "id": "openAIAssistant_0-input-tools-Tool"
+                    },
+                    {
+                        "label": "Input Moderation",
+                        "description": "Detect text that could generate harmful output and prevent it from being sent to the language model",
+                        "name": "inputModeration",
+                        "type": "Moderation",
+                        "optional": true,
+                        "list": true,
+                        "id": "openAIAssistant_0-input-inputModeration-Moderation"
                     }
                 ],
                 "inputs": {

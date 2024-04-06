@@ -1,6 +1,6 @@
+import { OpenAIEmbeddings, OpenAIEmbeddingsParams } from '@langchain/openai'
 import { ICommonObject, INode, INodeData, INodeParams } from '../../../src/Interface'
 import { getBaseClasses, getCredentialData, getCredentialParam } from '../../../src/utils'
-import { OpenAIEmbeddings, OpenAIEmbeddingsParams } from 'langchain/embeddings/openai'
 
 class OpenAIEmbedding_Embeddings implements INode {
     label: string
@@ -89,6 +89,9 @@ class OpenAIEmbedding_Embeddings implements INode {
         const basePath = nodeData.inputs?.basepath as string
         const modelName = nodeData.inputs?.modelName as string
 
+        if (nodeData.inputs?.credentialId) {
+            nodeData.credential = nodeData.inputs?.credentialId
+        }
         const credentialData = await getCredentialData(nodeData.credential ?? '', options)
         const openAIApiKey = getCredentialParam('openAIApiKey', credentialData, nodeData)
 

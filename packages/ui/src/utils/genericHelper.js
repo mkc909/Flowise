@@ -234,6 +234,15 @@ export const convertDateStringToDateObject = (dateString) => {
 
 export const getFileName = (fileBase64) => {
     let fileNames = []
+    if (fileBase64.startsWith('FILE-STORAGE::')) {
+        const names = fileBase64.substring(14)
+        if (names.includes('[') && names.includes(']')) {
+            const files = JSON.parse(names)
+            return files.join(', ')
+        } else {
+            return fileBase64.substring(14)
+        }
+    }
     if (fileBase64.startsWith('[') && fileBase64.endsWith(']')) {
         const files = JSON.parse(fileBase64)
         for (const file of files) {
@@ -353,6 +362,11 @@ export const getUpsertDetails = (nodes, edges) => {
                 if (vsNode.data.inputs.embeddings) {
                     const embeddingsId = vsNode.data.inputs.embeddings.replace(/{{|}}/g, '').split('.')[0]
                     innerNodes.push(nodes.find((node) => node.data.id === embeddingsId))
+                }
+
+                if (vsNode.data.inputs.recordManager) {
+                    const recordManagerId = vsNode.data.inputs.recordManager.replace(/{{|}}/g, '').split('.')[0]
+                    innerNodes.push(nodes.find((node) => node.data.id === recordManagerId))
                 }
 
                 for (const doc of connectedDocs) {
@@ -606,4 +620,26 @@ export const getConfigExamplesForCurl = (configData, bodyType, isMultiple, stopN
         else finalStr += bodyType === 'json' ? `, ` : ` \\`
     }
     return finalStr
+}
+
+export const getOS = () => {
+    let userAgent = window.navigator.userAgent.toLowerCase(),
+        macosPlatforms = /(macintosh|macintel|macppc|mac68k|macos)/i,
+        windowsPlatforms = /(win32|win64|windows|wince)/i,
+        iosPlatforms = /(iphone|ipad|ipod)/i,
+        os = null
+
+    if (macosPlatforms.test(userAgent)) {
+        os = 'macos'
+    } else if (iosPlatforms.test(userAgent)) {
+        os = 'ios'
+    } else if (windowsPlatforms.test(userAgent)) {
+        os = 'windows'
+    } else if (/android/.test(userAgent)) {
+        os = 'android'
+    } else if (!os && /linux/.test(userAgent)) {
+        os = 'linux'
+    }
+
+    return os
 }

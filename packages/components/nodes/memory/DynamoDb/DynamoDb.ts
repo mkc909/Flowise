@@ -9,9 +9,9 @@ import {
     DeleteItemCommandInput,
     AttributeValue
 } from '@aws-sdk/client-dynamodb'
-import { DynamoDBChatMessageHistory } from 'langchain/stores/message/dynamodb'
+import { DynamoDBChatMessageHistory } from '@langchain/community/stores/message/dynamodb'
+import { mapStoredMessageToChatMessage, AIMessage, HumanMessage, StoredMessage, BaseMessage } from '@langchain/core/messages'
 import { BufferMemory, BufferMemoryInput } from 'langchain/memory'
-import { mapStoredMessageToChatMessage, AIMessage, HumanMessage, StoredMessage, BaseMessage } from 'langchain/schema'
 import { convertBaseMessagetoIMessage, getBaseClasses, getCredentialData, getCredentialParam } from '../../../src/utils'
 import { FlowiseMemory, ICommonObject, IMessage, INode, INodeData, INodeParams, MemoryMethods, MessageType } from '../../../src/Interface'
 
@@ -81,11 +81,11 @@ class DynamoDb_Memory implements INode {
     }
 
     async init(nodeData: INodeData, _: string, options: ICommonObject): Promise<any> {
-        return initalizeDynamoDB(nodeData, options)
+        return initializeDynamoDB(nodeData, options)
     }
 }
 
-const initalizeDynamoDB = async (nodeData: INodeData, options: ICommonObject): Promise<BufferMemory> => {
+const initializeDynamoDB = async (nodeData: INodeData, options: ICommonObject): Promise<BufferMemory> => {
     const tableName = nodeData.inputs?.tableName as string
     const partitionKey = nodeData.inputs?.partitionKey as string
     const region = nodeData.inputs?.region as string
@@ -224,8 +224,8 @@ class BufferMemoryExtended extends FlowiseMemory implements MemoryMethods {
 
         const dynamoKey = overrideSessionId ? this.overrideDynamoKey(overrideSessionId) : this.dynamoKey
         const tableName = this.tableName
-        const messageAttributeName = this.messageAttributeName
 
+        const messageAttributeName = this.messageAttributeName ? this.messageAttributeName : 'messages'
         const params: GetItemCommandInput = {
             TableName: tableName,
             Key: dynamoKey

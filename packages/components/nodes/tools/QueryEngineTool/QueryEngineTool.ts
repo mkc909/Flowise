@@ -1,5 +1,5 @@
 import { INode, INodeData, INodeParams } from '../../../src/Interface'
-import { VectorStoreIndex } from 'llamaindex'
+import { QueryEngineTool } from 'llamaindex'
 
 class QueryEngine_Tools implements INode {
     label: string
@@ -16,18 +16,18 @@ class QueryEngine_Tools implements INode {
     constructor() {
         this.label = 'QueryEngine Tool'
         this.name = 'queryEngineToolLlamaIndex'
-        this.version = 1.0
+        this.version = 2.0
         this.type = 'QueryEngineTool'
         this.icon = 'queryEngineTool.svg'
         this.category = 'Tools'
         this.tags = ['LlamaIndex']
         this.description = 'Tool used to invoke query engine'
-        this.baseClasses = [this.type]
+        this.baseClasses = [this.type, 'Tool_LlamaIndex']
         this.inputs = [
             {
-                label: 'Vector Store Index',
-                name: 'vectorStoreIndex',
-                type: 'VectorStoreIndex'
+                label: 'Base QueryEngine',
+                name: 'baseQueryEngine',
+                type: 'BaseQueryEngine'
             },
             {
                 label: 'Tool Name',
@@ -45,21 +45,16 @@ class QueryEngine_Tools implements INode {
     }
 
     async init(nodeData: INodeData): Promise<any> {
-        const vectorStoreIndex = nodeData.inputs?.vectorStoreIndex as VectorStoreIndex
+        const baseQueryEngine = nodeData.inputs?.baseQueryEngine
         const toolName = nodeData.inputs?.toolName as string
         const toolDesc = nodeData.inputs?.toolDesc as string
-        const queryEngineTool = {
-            queryEngine: vectorStoreIndex.asQueryEngine({
-                preFilters: {
-                    ...(vectorStoreIndex as any).metadatafilter
-                }
-            }),
+        const queryEngineTool = new QueryEngineTool({
+            queryEngine: baseQueryEngine,
             metadata: {
                 name: toolName,
                 description: toolDesc
-            },
-            vectorStoreIndex
-        }
+            }
+        })
 
         return queryEngineTool
     }

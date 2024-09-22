@@ -221,6 +221,10 @@
             "name": "azureChatOpenAI",
             "models": [
                 {
+                    "label": "gpt-4o-mini",
+                    "name": "gpt-4o-mini"
+                },
+                {
                     "label": "gpt-4o",
                     "name": "gpt-4o"
                 },
@@ -249,6 +253,10 @@
         {
             "name": "azureChatOpenAI_LlamaIndex",
             "models": [
+                {
+                    "label": "gpt-4o-mini",
+                    "name": "gpt-4o-mini"
+                },
                 {
                     "label": "gpt-4o",
                     "name": "gpt-4o"
@@ -424,6 +432,26 @@
             "name": "groqChat",
             "models": [
                 {
+                    "label": "llama-3.1-405b-reasoning",
+                    "name": "llama-3.1-405b-reasoning"
+                },
+                {
+                    "label": "llama-3.1-70b-versatile",
+                    "name": "llama-3.1-70b-versatile"
+                },
+                {
+                    "label": "llama-3.1-8b-instant",
+                    "name": "llama-3.1-8b-instant"
+                },
+                {
+                    "label": "llama3-groq-70b-8192-tool-use-preview",
+                    "name": "llama3-groq-70b-8192-tool-use-preview"
+                },
+                {
+                    "label": "llama3-groq-8b-8192-tool-use-preview",
+                    "name": "llama3-groq-8b-8192-tool-use-preview"
+                },
+                {
                     "label": "gemma-7b-it",
                     "name": "gemma-7b-it"
                 },
@@ -458,15 +486,47 @@
             "name": "chatOpenAI",
             "models": [
                 {
-                    "label": "gpt-4o",
+                    "label": "gpt-4o-mini (latest)",
+                    "name": "gpt-4o-mini"
+                },
+                {
+                    "label": "gpt-4o-mini-2024-07-18",
+                    "name": "gpt-4o-mini-2024-07-18"
+                },
+                {
+                    "label": "gpt-4o (latest)",
                     "name": "gpt-4o"
                 },
                 {
-                    "label": "gpt-4",
+                    "label": "gpt-4o-2024-08-06",
+                    "name": "gpt-4o-2024-08-06"
+                },
+                {
+                    "label": "gpt-4o-2024-05-13",
+                    "name": "gpt-4o-2024-05-13"
+                },
+                {
+                    "label": "o1-preview (latest)",
+                    "name": "o1-preview"
+                },
+                {
+                    "label": "o1-preview-2024-09-12",
+                    "name": "o1-preview-2024-09-12"
+                },
+                {
+                    "label": "o1-mini (latest)",
+                    "name": "o1-mini"
+                },
+                {
+                    "label": "o1-mini-2024-09-12",
+                    "name": "o1-mini-2024-09-12"
+                },
+                {
+                    "label": "gpt-4 (latest)",
                     "name": "gpt-4"
                 },
                 {
-                    "label": "gpt-4-turbo",
+                    "label": "gpt-4-turbo (latest)",
                     "name": "gpt-4-turbo"
                 },
                 {
@@ -595,6 +655,10 @@
         {
             "name": "chatMistralAI",
             "models": [
+                {
+                    "label": "open-mistral-nemo",
+                    "name": "open-mistral-nemo"
+                },
                 {
                     "label": "open-mistral-7b",
                     "name": "open-mistral-7b"
